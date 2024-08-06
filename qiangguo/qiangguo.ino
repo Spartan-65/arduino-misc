@@ -32,6 +32,9 @@
 int platform = WINDOWS;
 int loop_count = 0;
 
+// 定义引脚编号
+const int inputPin = 6;
+
 int init_mouse()
 {
   Mouse.begin();
@@ -43,6 +46,7 @@ int init_mouse()
   }
 
   Serial.println("init_mouse done!");
+
   // delay(3000);
   return 0;
 }
@@ -51,6 +55,12 @@ int init_keyboard()
 {
   Keyboard.begin();
   return 0;
+}
+
+int init_pin()
+{
+  pinMode(inputPin, INPUT);
+  digitalWrite(inputPin, HIGH);
 }
 
 int keyboard_return_home()
@@ -242,7 +252,7 @@ void open_video_news()
   int rand_loop = 15 + random(2);
   int ddx = 0;
   int ddy = 0;
-  int px = 700;
+  int px = 300;
   int py = 1350;
   int nx = 0;
   int ny = 0;
@@ -343,9 +353,7 @@ void setup()
 {
   // put your setup code here, to run once:
   Serial.begin(9600);
-  // init_led_builtin();
-  delay(3000);
-  open_news_left();
+
   delay(20000);
   // Mouse.begin();
   // MM(0, 0, 100);
@@ -371,18 +379,17 @@ void setup()
   // read news
   open_news();
   read_news();
-  for (int i = 0; i < 12 + random(16); i++)
+  for (int i = 0; i < 8 + random(4); i++)
   {
     open_news_left();
     read_news();
   }
-
   open_video_news();
-
-  for (int i = 0; i < 12 + random(16); i++)
+  for (int i = 0; i < 8 + random(5); i++)
   {
     open_news_left();
-    read_news();
+    delay(600000);
+    // read_news();
   }
 }
 
